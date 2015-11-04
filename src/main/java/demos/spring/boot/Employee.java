@@ -16,11 +16,20 @@ public class Employee {
 	private String emailAddress;
 	private int holidaysRemaining;
 	private int holidaysTaken;
-	
+	private AccessLevel accessLevel;
+
 	public Employee(String firstName, String lastName, String emailAddress){
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.emailAddress = emailAddress;
+		this.accessLevel = AccessLevel.TEAM_MEMBER;
+	}
+	
+	public Employee(String firstName, String lastName, String emailAddress, AccessLevel accessLevel){
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.emailAddress = emailAddress;
+		this.accessLevel = accessLevel;
 	}
 	
 	protected Employee() {}
@@ -67,6 +76,14 @@ public class Employee {
 
 	public void setHolidaysTaken(int holidaysTaken) {
 		this.holidaysTaken = holidaysTaken;
+	}
+	
+	public AccessLevel getAccessLevel() {
+		return accessLevel;
+	}
+
+	public void setAccessLevel(AccessLevel accessLevel) {
+		this.accessLevel = accessLevel;
 	}
 
 }

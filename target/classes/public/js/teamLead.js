@@ -2,17 +2,17 @@
 $(document).ready(function() {
 
     // Get the JSON from the backend 
-    $.getJSON("/leaverequest/employee/{id}", function (data) {
+    $.getJSON("/leaverequest/employee/1", function (data) {
         // For each object in the JSON...
         $.each(data, function (key, val) {
             $("#holiday-table tbody").append(
                 "<tr>" +
-                "<td>" + val.empName + "</td>" +
+                "<td>" + val.employeeName + "</td>" +
                 "<td>" + val.projectName + "</td>" +
                 "<td>" + val.startDate + "</td>" +
                 "<td>" + val.endDate + "</td>" +
                 "<td>" + val.description + "</td>" +
-                "<td>" + val.approval + "</td>" +
+                "<td>" + val.status + "</td>" +
                 "<td class='group-btn'>" +
                 + '<a href="#" class="btn btn-primary btn-xs">Approve<i class="fa fa-sign-in"></i></a>' +
                 + "<br>" +

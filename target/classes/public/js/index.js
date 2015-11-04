@@ -1,45 +1,38 @@
-var newLeaveApp = angular.module('newLeaveApp', []);
+var restApp = angular.module('coursesApp', []);
 
-newLeaveApp.constant('baseURL','/leaverequest/');
+restApp.constant('baseURL','/courses/');
 
-newLeaveApp.controller('LeaveRequestController', function (baseURL, $scope,$http) {
-    fetchLeave();
-    $scope.noLeaveSelected = true;
-    $scope.leaveBeingUpdated = false;
+restApp.controller('CoursesController', function (baseURL, $scope,$http) {
+    fetchCourses();
+    $scope.noCourseSelected = true;
+    $scope.courseBeingUpdated = false;
     
-    function fetchLeave() {
-        function storeLeave(data) {
-            $scope.leaveRequests = data;
+    function fetchCourses() {
+        function storeCourses(data) {
+            $scope.courses = data;
         }
-        $http.get(baseURL+"/employee/1").success(storeLeave);
+        $http.get(baseURL).success(storeCourses);
     }
-    $scope.fetchLeave = fetchLeave();
+    $scope.fetchCourses = fetchCourses;
     
-    $scope.beginUpdateOfLeave = function(leave) {
-        $scope.leaveBeingUpdated = angular.copy(leave);
+    $scope.beginUpdateOfCourse = function(course) {
+        $scope.courseBeingUpdated = angular.copy(course);
     };
-    $scope.updateLeave = function() {
+    $scope.updateCourse = function() {
         function resetForm() {
-            $scope.LeaveBeingUpdated = false;
-            fetchLeave();
+            $scope.courseBeingUpdated = false;
+            fetchCourses();
         }
-        var leave = $scope.leaveBeingUpdated;
-        $http.put(baseURL + "", leave).success(resetForm);
+        var course = $scope.courseBeingUpdated;
+        $http.put(baseURL + course.id, course).success(resetForm);
     };
-    $scope.selectLeave = function(leave) {
-        $scope.noLeaveSelected = false;
-        $scope.selectedLeave = leave;
+    $scope.selectCourse = function(course) {
+        $scope.noCourseSelected = false;
+        $scope.selectedCourse = course;
     };
-    $scope.deleteLeave = function(leave) {
-      $http.delete(baseURL + ""); 
-      $scope.noLeaveSelected = true;
-      fetchLeave();
-    };
-    $scope.addLeave = function() {
-       function resetForm() {
-           fetchLeave();
-       }
-       var leave = $scope.newLeave;
-       $http.put(baseURL + "/new", leave).success(resetForm);
+    $scope.deleteCourse = function(course) {
+      $http.delete(baseURL + course.id ); 
+      $scope.noCourseSelected = true;
+      fetchCourses();
     };
 });
