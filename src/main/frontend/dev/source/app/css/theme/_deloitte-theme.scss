@@ -1,0 +1,21 @@
+body {
+	background-color: #000000;
+	color: #afafaf;
+}
+
+.navmenu-default, .navbar-default .navbar-offcanvas, .canvas {
+	background-color: #000000;
+	border-color: #79b000;
+}
+
+.navmenu-default .navmenu-nav > li > a:hover {
+	color: #79b000;
+}
+
+.center {
+	text-align: center;
+}
+
+.center-auto {
+	margin: 0 auto;
+}
