@@ -3,7 +3,6 @@ var newLeaveApp = angular.module('newLeaveApp', []);
 newLeaveApp.constant('baseURL','');
 
 newLeaveApp.controller('LeaveRequestController', function (baseURL, $scope,$http) {
-    fetchLeave();
     $scope.user;
     $scope.loggedIn = false;
     $scope.isTeamLead = false;
@@ -14,10 +13,8 @@ newLeaveApp.controller('LeaveRequestController', function (baseURL, $scope,$http
         function storeLeave(data) {
             $scope.leaveRequests = data;
         }
-        $http.get(baseURL+"/leaverequest/employee/1").success(storeLeave);
+        $http.get(baseURL+"/leaverequest/employee/" + $scope.user.id).success(storeLeave);
     }
-    $scope.fetchLeave = fetchLeave();
-    
     $scope.beginUpdateOfLeave = function(leave) {
         $scope.leaveBeingUpdated = angular.copy(leave);
     };
@@ -54,6 +51,7 @@ newLeaveApp.controller('LeaveRequestController', function (baseURL, $scope,$http
                if(!$scope.user.accessLevel==="TEAM_MEMBER") {
                     $scope.isTeamLead = true;
                }
+               $scope.fetchLeave = fetchLeave();
             }
         });
 
