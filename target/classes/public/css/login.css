@@ -11,15 +11,15 @@ body {
 }
 
 .form-login {
-    background-color: #ffffff;
+    background-color: #EDEDED;
     padding-top: 20px;
     padding-bottom: 50px;
     padding-left: 50px;
-    padding-right: 60px;
+    padding-right: 50px;
     border-radius: 15px;
     border-color:#d2d2d2;
-    border-width: 10px;
-    box-shadow:2px 2px 2px 2px #cfcfcf;
+    border-width: 5px;
+    box-shadow:0 1px 0 #cfcfcf;
 }
 
 h4 { 
@@ -43,6 +43,6 @@ h4 {
 background-color: #33CC33;
 }
 
-.img{
-    padding-right:50px;
+body{
+    color:#000000;
 }
