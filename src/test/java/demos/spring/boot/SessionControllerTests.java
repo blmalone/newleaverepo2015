@@ -20,7 +20,7 @@ public class SessionControllerTests {
 	private Employee employee;
 	
 	@Before
-	public void createUserInDb() {
+	public void testSetUp() {
 		employee = new Employee("Dave", "Jones", "dave@email.com");
 		MockitoAnnotations.initMocks(this);
 	}
