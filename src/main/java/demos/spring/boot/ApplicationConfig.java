@@ -1,6 +1,5 @@
 package demos.spring.boot;
 
-import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,13 +33,14 @@ public class ApplicationConfig {
 		emp = empDao.findByEmailAddress("donald@duck.net");
 		System.out.println("ID OF EMPLOYEE IS" + emp.getId());
 
-		String startDate = "2015-11-03";
-		String endDate = "2015-12-25";
-		LeaveRequest leaveRequest = new LeaveRequest(emp.getId(), startDate, endDate, LeaveType.SCHEDULED_LEAVE);
+		int startDate = 20151103;
+		int endDate = 20151225;
+		String description = "going on holiday";
+		LeaveRequest leaveRequest = new LeaveRequest(emp.getId(), startDate, endDate, LeaveType.SCHEDULED_LEAVE, description);
 		leaveDao.save(leaveRequest);
 		
-		String projectStart = "2015-11-21";
-		String projectEnd = "2015-12-13";
+		int projectStart = 20151121;
+		int projectEnd = 20151213;
 		Project project = new Project("Test project", emp.getId(), projectStart, projectEnd);
 		projectDao.save(project);
 		List<Project> projects = (List<Project>) projectDao.findAll();

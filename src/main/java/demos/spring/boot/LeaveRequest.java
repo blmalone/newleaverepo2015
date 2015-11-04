@@ -1,7 +1,5 @@
 package demos.spring.boot;
 
-import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,17 +12,27 @@ public class LeaveRequest {
     @GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 	private Integer employeeId;
-	private String startDate;
-	private String endDate;
+	private int startDate;
+	private int endDate;
 	private LeaveType leaveType;
 	private LeaveRequestStatus status;
-	
-	public LeaveRequest(Integer employeeId, String startDate, String endDate, LeaveType leaveType){
+	private String description;
+
+	public LeaveRequest(Integer employeeId, int startDate, int endDate, LeaveType leaveType, String description){
 		this.employeeId = employeeId;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.leaveType = leaveType;
 		this.status = LeaveRequestStatus.PENDING;
+		this.description = description;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+	
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	
 	protected LeaveRequest() {}
@@ -45,19 +53,19 @@ public class LeaveRequest {
 		this.employeeId = employeeId;
 	}
 
-	public String getStartDate() {
+	public int getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(String startDate) {
+	public void setStartDate(int startDate) {
 		this.startDate = startDate;
 	}
 
-	public String getEndDate() {
+	public int getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(String endDate) {
+	public void setEndDate(int endDate) {
 		this.endDate = endDate;
 	}
 
