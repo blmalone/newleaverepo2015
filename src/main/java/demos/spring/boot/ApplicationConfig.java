@@ -1,6 +1,7 @@
 package demos.spring.boot;
 
-import java.util.Date;
+import java.sql.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -17,17 +18,37 @@ public class ApplicationConfig {
 	@Autowired
 	private LeaveRequestDao leaveDao;
 	
+	@Autowired
+	private ProjectDao projectDao;
+	
+	@Autowired
+	private EmployeeProjectDao employeeProjectDao;
+	
 	@Bean
 	public boolean setUp() {
 		System.out.println("!!!!!!!############*********************");
 		System.out.println("The set up method has been called.");
+
 		Employee emp = new Employee("Donald", "Duck", "donald@duck.net");
 		empDao.save(emp);
 		emp = empDao.findByEmailAddress("donald@duck.net");
-		Date startDate = new Date(2015,11,03);
-		Date endDate = new Date(2015,12,25);
+		System.out.println("ID OF EMPLOYEE IS" + emp.getId());
+
+		String startDate = "2015-11-03";
+		String endDate = "2015-12-25";
 		LeaveRequest leaveRequest = new LeaveRequest(emp.getId(), startDate, endDate, LeaveType.SCHEDULED_LEAVE);
 		leaveDao.save(leaveRequest);
+		
+		String projectStart = "2015-11-21";
+		String projectEnd = "2015-12-13";
+		Project project = new Project("Test project", emp.getId(), projectStart, projectEnd);
+		projectDao.save(project);
+		List<Project> projects = (List<Project>) projectDao.findAll();
+		project = projects.get(0);
+		
+		EmployeeProject employeeProject = new EmployeeProject(emp.getId(), project.getId());
+		employeeProjectDao.save(employeeProject);
+		
 		return true;
 	}
 	
