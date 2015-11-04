@@ -4,6 +4,8 @@ newLeaveApp.constant('baseURL','/leaverequest/');
 
 newLeaveApp.controller('LeaveRequestController', function (baseURL, $scope,$http) {
     fetchLeave();
+    $scope.loggedIn = true;
+    $scope.isTeamLead = true;
     $scope.noLeaveSelected = true;
     $scope.leaveBeingUpdated = false;
     
