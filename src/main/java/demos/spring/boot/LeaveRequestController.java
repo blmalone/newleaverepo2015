@@ -62,7 +62,7 @@ public class LeaveRequestController {
 		int startDate;
 		int endDate;
 		String description;
-		LeaveType type;
+		LeaveType leaveType;
 		LeaveRequestStatus status;
 	}
 	
@@ -83,7 +83,7 @@ public class LeaveRequestController {
 					newRequest.startDate = request.getStartDate();
 					newRequest.endDate = request.getEndDate();
 					newRequest.description = request.getDescription();
-					newRequest.type = request.getLeaveType();
+					newRequest.leaveType = request.getLeaveType();
 					newRequest.status = request.getStatus();
 					requests.add(newRequest);
 				}

@@ -1,4 +1,4 @@
-w<!DOCTYPE html>
+<!DOCTYPE html>
 <html ng-app="newLeaveApp" lang="en">
 <head>
     <meta charset="UTF-8">
@@ -16,8 +16,6 @@ w<!DOCTYPE html>
 
 <body ng-controller="LeaveRequestController">
 <div class="container">
-
-
     <div class="row">
         <div id="title" class="col-md-6">
             <h1 id="heading"> New Leave: Make a new booking </h1>
@@ -27,53 +25,38 @@ w<!DOCTYPE html>
         </div>
     </div>
 
-
-
-
     <div id="leaveTable">
-                    <table id="newLeaveTable" class="table table-condensed table-hover table-bordered" ng-submit="addLeave()">
-                        <thead>
-                        <tr>
-                            <th>Start date</th>
-                            <th>End date</th>
-                            <th>Description</th>
-                            <th>Type</th>
-                        </thead>
+        <table id="newLeaveTable" class="table table-condensed table-hover table-bordered" ng-submit="addLeave()">
+            <thead>
+            <tr>
+                <th>Start date</th>
+                <th>End date</th>
+                <th>Description</th>
+                <th>Type</th>
+            </thead>
+            <tbody>
+            <tr>
+                <td> <input type="date" ng-model="newLeave.startDate"/>
+                <td> <input type="date" ng-model="newLeave.endDate"/>
+                <td> <input type="text" ng-model="newLeave.description"/>
+                <td>
+                    <select id="chooseType" ng-model="newLeave.leaveType">
+                        <option value="none">Select a type</option>
+                        <option value="scheduledLeave">Scheduled leave</option>
+                        <option value="publicHoliday">Public holiday</option>
+                        <option value="training">Training day</option>
+                        <option value="additionalHoliday">Additional Holiday</option>
+                    </select>
+                </td>
+                <td><input type="submit" value="Submit"/></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
-                        <tbody>
-                        <tr>
-                            <td> <input type="date" ng-model="newLeave.startDate"/>
-                            <td> <input type="date" ng-model="newLeave.endDate"/>
-                            <td> <select id="chooseDescription" ng-model="newLeave.description">
-                                <option value="none">Select a description</option>
-                                <option value="famHoliday">Family Holiday</option>
-                                <option value="wedding">Wedding</option>
-                                <option value="workHoliday">Work holiday</option>
-                                <option value="ladsOnTour">Lads on Tour</option>
-                            </select>
-                            </td>
-
-                            <td>
-                                <select id="chooseType" ng-model="newLeave.leaveType">
-                                    <option value="none">Select a type</option>
-                                    <option value="scheduledLeave">Scheduled leave</option>
-                                    <option value="publicHoliday">Public holiday</option>
-                                    <option value="training">Training day</option>
-                                    <option value="additionalHoliday">Additional Holiday</option>
-                                </select>
-                            </td>
-                            <td><input type="submit" value="Submit"/></td>
-                        </tr>
-
-
-                        </tbody>
-
-                    </table>
-
-                </div>
-<br>
+    <br>
     <button id="submitButton">Submit</button>
-<br>
+    <br>
 
     <h1>My bookings</h1>
 
@@ -87,31 +70,25 @@ w<!DOCTYPE html>
                 <th>Type</th>
                 <th>Approver</th>
                 <th>Status</th>
-
             </thead>
-
             <tbody>
             <tr ng-repeat="leaveRequest in leaveRequests">
-            <td>{{ leaveRequest.startDate }}</td>
-            <td>{{ leaveRequest.endDate }}</td>
-            <td>{{ leaveRequest.description }}</td>
-            <td>{{ leaveRequest.leaveType }}</td>
-            <td>{{ leaveRequest.approver }}</td>
-            <td>{{ leaveRequest.status }}</td>
-            <td>{{ leaveRequest.comment }}</td>
-                </tr>
-
+                <td>{{ leaveRequest.startDate }}</td>
+                <td>{{ leaveRequest.endDate }}</td>
+                <td>{{ leaveRequest.description }}</td>
+                <td>{{ leaveRequest.leaveType }}</td>
+                <td>{{ leaveRequest.approver }}</td>
+                <td>{{ leaveRequest.status }}</td>
+                <td>{{ leaveRequest.comment }}</td>
+            </tr>
             </tbody>
-
-            </table>
-        </div>
-
-<br>
-<button id="cancelEdit">Cancel/Edit booking</button>
-
-
-
+        </table>
     </div>
+
+    <br>
+    <button id="cancelEdit">Cancel/Edit booking</button>
+
+</div>
 </body>
 </html>
 
