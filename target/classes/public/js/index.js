@@ -2,10 +2,12 @@ var restApp = angular.module('coursesApp', []);
 
 restApp.constant('baseURL','/courses/');
 
-restApp.controller('CoursesController', function (baseURL, $scope,$http) {
-    fetchCourses();
-    $scope.noCourseSelected = true;
-    $scope.courseBeingUpdated = false;
+newLeaveApp.controller('LeaveRequestController', function (baseURL, $scope,$http) {
+    fetchLeave();
+    $scope.loggedIn = true;
+    $scope.isTeamLead = true;
+    $scope.noLeaveSelected = true;
+    $scope.leaveBeingUpdated = false;
     
     function fetchCourses() {
         function storeCourses(data) {
