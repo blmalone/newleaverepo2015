@@ -48,8 +48,8 @@ newLeaveApp.controller('LeaveRequestController', function (baseURL, $scope,$http
            fetchLeave();
        }
        convertDatesInLeaveObject();
+       $scope.newLeave.status="PENDING";
        var leave = $scope.newLeave;
-       leave.leaveType = convertTypeToEnum($scope.newLeave.leaveType);
        leave.employeeId = $scope.user.id;
        console.log(leave);
        $http.post(baseURL + "/leaverequest/new", leave).success(function(data) {
@@ -74,14 +74,7 @@ newLeaveApp.controller('LeaveRequestController', function (baseURL, $scope,$http
     }
 
     function convertTypeToEnum(typeAsString) {
-        var typeConversions = {
-          "Scheduled leave" : "SCHEDULED_LEAVE",
-          "Public holiday" : "PUBLIC_HOLIDAY",
-          "Training" : "TRAINING",
-          "Additional Holiday" : "ADDITIONAL_HOLIDAY",
-          "Bereavement" : "BEREAVEMENT"
-        };
-        return typeConversions[typeAsString];
+        return typeAsString.toUpperCase().replace(" ", "_");
     }
 
     function convertDateToInteger(dateAsString) {

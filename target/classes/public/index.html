@@ -23,8 +23,8 @@
 </head>
 
 <body ng-controller="LeaveRequestController">
-<span us-spinner="{radius:30, width:8, length: 16}"></span>
 <div class="login" ng-hide="loggedIn">
+<span us-spinner="{radius:30, width:8, length: 16}"></span>
 <div class="container">
     <div class="row">
         <div class="col-md-offset-5 col-md-4">
@@ -53,7 +53,7 @@
 </div>
 
 <div class="container" ng-show="loggedIn">
-
+<span us-spinner="{radius:30, width:8, length: 16}"></span>
 <!--     <header>
         <img src="/img/images.png">
         <nav>
@@ -89,11 +89,11 @@
                 <td>
                     <select id="chooseType" ng-model="newLeave.leaveType">
                         <option value="none">Select a type</option>
-                        <option value="scheduledLeave">Scheduled leave</option>
-                        <option value="publicHoliday">Public holiday</option>
-                        <option value="training">Training</option>
-                        <option value="additionalHoliday">Additional Holiday</option>
-                        <option value="additionalHoliday">Bereavement</option>
+                        <option value="SCHEDULED_LEAVE">Scheduled leave</option>
+                        <option value="PUBLIC_HOLIDAY">Public holiday</option>
+                        <option value="TRAINING">Training</option>
+                        <option value="ADDITIONAL_HOLIDAY">Additional Holiday</option>
+                        <option value="BEREAVEMENT">Bereavement</option>
                     </select>
                 </td>
                 <td><input type="submit" value="Submit"/></td>
