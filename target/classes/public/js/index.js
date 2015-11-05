@@ -2,7 +2,7 @@ var newLeaveApp = angular.module('newLeaveApp', ['ngLoadingSpinner']);
 
 newLeaveApp.constant('baseURL','');
 
-newLeaveApp.controller('LeaveRequestController', function (baseURL, $scope,$http) {
+newLeaveApp.controller('LeaveRequestController', function (baseURL, $scope, $http, $location, $anchorScroll) {
     $scope.user;
     $scope.loggedIn = false;
     $scope.isTeamLead = false;
@@ -10,18 +10,25 @@ newLeaveApp.controller('LeaveRequestController', function (baseURL, $scope,$http
     $scope.leaveBeingUpdated = false;
     $scope.requestingLeave = false;
     $scope.approvingLeave = false;
+
+    $scope.hasLeaveRequests = function() {
+      return $scope.leaveRequests.length > 0;
+    }
     
     function fetchLeave() {
         function storeLeave(data) {
             $scope.leaveRequests = data;
         }
         function storeLeaveForApproval(data) {
-            console.log(data);
             $scope.leaveRequestsForApproval = data;
+        }
+        function storeCurrentProjects(data) {
+            $scope.currentProjects = data;
         }
         $http.get(baseURL+"/leaverequest/employee/" + $scope.user.id).success(storeLeave);
         if($scope.isTeamLead) {
-            $http.get(baseURL+"/leaverequest/teamlead/" + $scope.user.id).success(storeLeaveForApproval);
+            $http.get(baseURL + "/leaverequest/teamlead/" + $scope.user.id).success(storeLeaveForApproval);
+            $http.get(baseURL + "/project/teamlead/" + $scope.user.id).success(storeCurrentProjects);
         }
     }
     $scope.beginUpdateOfLeave = function(leave) {
@@ -59,6 +66,21 @@ newLeaveApp.controller('LeaveRequestController', function (baseURL, $scope,$http
           resetForm();
        });
     };
+
+    $scope.createProject = function() {
+      $location.hash('nav');
+      $anchorScroll();
+      //usSpinnerService.spin();
+      $scope.newProject.teamLeadId = $scope.user.id;
+      $scope.newProject.startDate = convertDateToInteger($scope.newProject.startDate.toISOString());
+      $scope.newProject.endDate = convertDateToInteger($scope.newProject.endDate.toISOString());
+      $http.post(baseURL + "/project/new", $scope.newProject).success(function(data) {
+          console.log(data);
+          fetchLeave();
+          //usSpinnerService.stop();
+       });
+    }
+
     $scope.showApproveLeave = function() {
        $scope.requestingLeave = false;
        $scope.approvingLeave = true;

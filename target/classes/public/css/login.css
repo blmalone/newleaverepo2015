@@ -1,14 +1,4 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:400);
-body {
-  background-color:#fff;
-  -webkit-font-smoothing: antialiased;
-  font: normal 14px Roboto,arial,sans-serif;
-}
-
-.container {
-    padding: 25px;
-    position: fixed;
-}
 
 .form-login {
     background-color: #EDEDED;
@@ -41,8 +31,4 @@ h4 {
 
 .btn:hover {
 background-color: #33CC33;
-}
-
-body{
-    color:#000000;
 }

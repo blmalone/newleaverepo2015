@@ -13,21 +13,19 @@
 
     <script src="/js/index.js"></script>
 
-
-
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
-
-    <title>New Leave</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <title>breakOut</title>
 </head>
 
 <body ng-controller="LeaveRequestController">
-<div class="login" ng-hide="loggedIn">
 <span us-spinner="{radius:30, width:8, length: 16}"></span>
-<div class="container">
-    <div class="row">
-        <div class="col-md-offset-5 col-md-4">
+<div class="login" ng-hide="loggedIn">
+
+    <div id="login-bg">
+        <!-- <div class="col-md-offset-5 col-md-4"> -->
             <div class="form-login">
                 <img src="img/images.png">
                 <h4>Login.</h4>
@@ -45,19 +43,19 @@
                 <a href="" class="btn btn-primary btn-md" ng-click="loginEmployee()">Login <i class="fa fa-sign-in"></i></a>
             </span>
                 </div>
-            </div>
-
-        </div>
+            <!-- </div> -->
     </div>
 </div>
 </div>
 
-<div class="navigation" ng-show="loggedIn">
-    <ul>
-        <li><a href="" ng-click="showRequestLeave()">Request Leave</a></li>
-        <li><a href="" ng-click="showApproveLeave()" ng-show="isTeamLead">Approve Leave</a></li>
-    </ul>
-</div>
+<header ng-show="loggedIn">
+    <div class="navigation" id="nav">
+        <img src="/img/images.png" />
+            <a href="" ng-click="showRequestLeave()">My leave</a>
+            <a href="" ng-click="showApproveLeave()" ng-show="isTeamLead">Project administration</a>
+    </div>
+    <div class="color-bar"></div>
+</header>
 
 
 <div class="container" ng-show="requestingLeave">
@@ -71,11 +69,9 @@
 
     <div class="row">
         <div id="title" class="col-md-6">
-            <h1 id="heading"> New Leave: Make a new booking </h1>
+            <h1 id="heading">Book leave</h1>
         </div>
-        <div id="image" class="col-md-6">
-            <img id="DD" src="img/dd.png"/>
-        </div>
+        
     </div>
 
     <div id="leaveTable">
@@ -115,7 +111,7 @@
     <button id="submitButton">Submit</button>
     <br> -->
 
-    <h1>My bookings</h1>
+    <h1 id="heading">My bookings</h1>
 
     <div id="myBookings">
         <table id="myBookingsTable" class="table table-condensed table-hover table-bordered">
@@ -125,16 +121,21 @@
                 <th>End date</th>
                 <th>Description</th>
                 <th>Type</th>
-                <th>Approver</th>
                 <th>Status</th>
             </thead>
             <tbody>
+            <tr ng-hide="hasLeaveRequests()">
+                <td>You have no requests currently<td>
+                <td>
+                <td>
+                <td>
+                <td>
+            </tr>
             <tr ng-repeat="leaveRequest in leaveRequests">
                 <td>{{ leaveRequest.startDate }}</td>
                 <td>{{ leaveRequest.endDate }}</td>
                 <td>{{ leaveRequest.description }}</td>
                 <td>{{ leaveRequest.leaveType }}</td>
-                <td>{{ leaveRequest.approver }}</td>
                 <td>{{ leaveRequest.status }}</td>
                 <td>{{ leaveRequest.comment }}</td>
             </tr>
@@ -143,14 +144,13 @@
     </div>
 
     <br>
-    <button id="cancelEdit">Cancel/Edit booking</button>
+    <!-- <button id="cancelEdit">Cancel/Edit booking</button> -->
 </div>
 
 <div class="requested-leave" ng-show="approvingLeave">
-    <h1>Team Lead Area</h1>
     <div class="container">
         <h2>Requested Leave</h2>
-        <p> Below shows requested leave that needs authorised from employees</p>
+        <p> </p>
         <table class="table table-hover " id="holiday-table">
             <thead>
             <tr>
@@ -182,39 +182,23 @@
 
 
     <div class="container">
-        <h2>Current Projects</h2>
-        <p> Below shows the existing projects running within the company</p>
+        <h2>My projects</h2>
+        <p> </p>
         <table class="table table-hover ">
             <thead>
             <tr col>
                 <th>Project Name</th>
-                <th>Team Lead</th>
                 <th>Start Date</th>
                 <th>End Date</th>
                 <th></th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>Project 101</td>
-                <td>John Smith</td>
-                <td>09/12/14</td>
-                <td>22/1/15</td>
-            </tr>
-            <tr>
-                <td>Project 345</td>
-                <td>Laura Hewitt</td>
-                <td>01/01/15</td>
-                <td>03/05/16</td>
-
-            </tr>
-            <tr>
-                <td>Project 523</td>
-                <td>David Glass</td>
-                <td>14/06/15</td>
-                <td>17/09/16</td>
-            </tr>
-            
+                <tr ng-repeat="project in currentProjects">
+                <td>{{ project.name }}</td>
+                <td>{{ project.startDate }}</td>
+                <td>{{ project.endDate }}</td>
+                </tr>
             </tbody>
         </table>
     </div>
@@ -224,69 +208,29 @@
             <div class ="row">
                 <div class ="col-lg-6">
                     <h3>Create Project</h3>
+                    <form ng-submit="createProject()">
                     <label>Project Name</label>
-                    <input type ="text" class="form-control input-sm chat-input" maxlength="30"/>
+                    <input type ="text" id="new-project-name" class="form-control input-sm chat-input" maxlength="30" ng-model="newProject.name"/>
                     <br>
-                    <label>Team Lead</label>
-                    <input type ="text" class="form-control input-sm chat-input" maxlength="30"/>
-                    <br>
+
                     <label>Start Date</label>
                     <br>
-                    <br>
-                    <input type ="date"/>
+                    <input type ="date" ng-model="newProject.startDate"/>
                     <br>
                     <br>
                     <label>End Date</label>
                     <br>
-                    <input type ="date"/>
+                    <input type ="date" ng-model="newProject.endDate"/>
                     <br>
                     <br>
                     <br>
                     <br>
-  <span class="group-btn">
+                    <input type="submit" value="Create" />
+                    </form>
+  <!-- <span class="group-btn">
                 <a href="#" class="btn btn-primary btn-md">Create Project<i class="fa fa-sign-in"></i></a>
-            </span>
+            </span> -->
                 </div>
-
-
-                <div class ="col-lg-6">
-                    <h3>Book Leave</h3>
-                    <label>Name</label>
-                    <input type ="text" class="form-control input-sm chat-input" maxlength="30"/>
-                    <label>Project Name</label>
-                    <input type ="text" class="form-control input-sm chat-input" maxlength ="30"/>
-                    <br>
-                    <label>Start Date</label>
-                    <br>
-                    <input type ="date"/>
-                    <br>
-                    <label>End Date</label>
-                    <br>
-                    <input type ="date"/>
-                    <br>
-                    <br>
-                    <label>Description</label>
-                    <select name="description">
-                        <option value="family holiday">Family Holiday</option>
-                        <option value="appointment">Appointment</option>
-                        <option value="personal Day">Personal Day</option>
-                    </select>
-                    <br>
-                    <br>
-                    <label>Type</label>
-                    <select name="type">
-                        <option value="training day">Training day</option>
-                        <option value="public holiday">Public holiday</option>
-                        <option value="scheduled leave">Scheduled Leave</option>
-                        <option value="unpaid leave">Unpaid Leave</option>
-                    </select>
-                    <br>
-                    <br>
-  <span class="group-btn">
-                <a href="#" class="btn btn-primary btn-md">Book Leave<i class="fa fa-sign-in"></i></a>
-            </span>
-                </div>
-
             </div>
         </div>
     </div>
@@ -295,43 +239,7 @@
 
 
 
-<div class ="booked-leave" ng-show="approvingLeave">
-    <div class="container">
-        <h2>Your Booked Leave</h2>
-        <table class="table table-hover ">
-            <thead>
-            <tr>
-                <th>Start Date</th>
-                <th>End Date</th>
-                <th>Approved</th>
-                <th>Edit/Cancel</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>01/01/16</td>
-                <td>07/01/16</td>
-                <td>Yes</td>
-                <td><a href ="#">Edit/Cancel</a></td>
 
-            </tr>
-            <tr>
-                <td>17/03/16</td>
-                <td>20/03/16</td>
-                <td>Yes</td>
-                <td><a href ="#">Edit/Cancel</a></td>
-
-            </tr>
-            <tr>
-                <td>23/05/16</td>
-                <td>2/06/16</td>
-                <td>Pending</td>
-                <td><a href ="#">Edit/Cancel</a></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
 </body>
 </html>
 
