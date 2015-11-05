@@ -8,6 +8,8 @@ newLeaveApp.controller('LeaveRequestController', function (baseURL, $scope,$http
     $scope.isTeamLead = false;
     $scope.noLeaveSelected = true;
     $scope.leaveBeingUpdated = false;
+    $scope.requestingLeave = false;
+    $scope.approvingLeave = false;
     
     function fetchLeave() {
         function storeLeave(data) {
@@ -57,12 +59,20 @@ newLeaveApp.controller('LeaveRequestController', function (baseURL, $scope,$http
           resetForm();
        });
     };
+    $scope.showApproveLeave = function() {
+       $scope.requestingLeave = false;
+       $scope.approvingLeave = true;
+    };
+    $scope.showRequestLeave = function() {
+       $scope.requestingLeave = true;
+       $scope.approvingLeave = false;
+    };
 
     $scope.approveRequest = function(requestId) {
         $http.post(baseURL + "/leaverequest/" + requestId + "/approve").success(fetchLeave);
     };
 
-     $scope.rejectRequest = function(requestId) {
+    $scope.rejectRequest = function(requestId) {
         $http.post(baseURL + "/leaverequest/" + requestId + "/reject").success(fetchLeave);
     };
 
@@ -96,6 +106,7 @@ newLeaveApp.controller('LeaveRequestController', function (baseURL, $scope,$http
                     $scope.isTeamLead = true;
                }
                $scope.fetchLeave = fetchLeave();
+               $scope.showRequestLeave();
             }
         });
 

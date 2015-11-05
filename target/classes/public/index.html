@@ -52,7 +52,15 @@
 </div>
 </div>
 
-<div class="container" ng-show="loggedIn">
+<div class="navigation" ng-show="loggedIn">
+    <ul>
+        <li><a href="" ng-click="showRequestLeave()">Request Leave</a></li>
+        <li><a href="" ng-click="showApproveLeave()" ng-show="isTeamLead">Approve Leave</a></li>
+    </ul>
+</div>
+
+
+<div class="container" ng-show="requestingLeave">
 <span us-spinner="{radius:30, width:8, length: 16}"></span>
 <!--     <header>
         <img src="/img/images.png">
@@ -138,7 +146,7 @@
     <button id="cancelEdit">Cancel/Edit booking</button>
 </div>
 
-<div class="requested-leave" ng-show="isTeamLead">
+<div class="requested-leave" ng-show="approvingLeave">
     <h1>Team Lead Area</h1>
     <div class="container">
         <h2>Requested Leave</h2>
@@ -287,7 +295,7 @@
 
 
 
-<div class ="booked-leave" ng-show="isTeamLead">
+<div class ="booked-leave" ng-show="approvingLeave">
     <div class="container">
         <h2>Your Booked Leave</h2>
         <table class="table table-hover ">
