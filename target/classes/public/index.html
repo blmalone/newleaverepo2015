@@ -6,7 +6,15 @@
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <link rel="stylesheet" href="/css/newLeave.css">
     <script src="/js/angular.min.js"></script>
+
+    <script type="text/javascript" src="/js/spin.min.js"></script>
+    <script type="text/javascript" src="/js/angular-spinner.js"></script>
+  <script type="text/javascript" src="/js/angular-loading-spinner.js"></script>
+
     <script src="/js/index.js"></script>
+
+
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
@@ -15,6 +23,7 @@
 </head>
 
 <body ng-controller="LeaveRequestController">
+<span us-spinner="{radius:30, width:8, length: 16}"></span>
 <div class="login" ng-hide="loggedIn">
 <div class="container">
     <div class="row">
@@ -33,7 +42,7 @@
                 </br>
                 <div class="wrapper">
             <span class="group-btn">
-                <a href="#" class="btn btn-primary btn-md" ng-click="loginEmployee()">Login <i class="fa fa-sign-in"></i></a>
+                <a href="" class="btn btn-primary btn-md" ng-click="loginEmployee()">Login <i class="fa fa-sign-in"></i></a>
             </span>
                 </div>
             </div>
@@ -44,23 +53,33 @@
 </div>
 
 <div class="container" ng-show="loggedIn">
+
+<!--     <header>
+        <img src="/img/images.png">
+        <nav>
+        <a href="" ng-click="">My leave</a>
+        </nav>
+    </header> -->
+
     <div class="row">
         <div id="title" class="col-md-6">
             <h1 id="heading"> New Leave: Make a new booking </h1>
         </div>
         <div id="image" class="col-md-6">
-            <img id="DD" src="dd.png"/>
+            <img id="DD" src="img/dd.png"/>
         </div>
     </div>
 
     <div id="leaveTable">
-        <table id="newLeaveTable" class="table table-condensed table-hover table-bordered" ng-submit="addLeave()">
+        <form id="newLeaveForm" ng-submit="addLeave()">
+        <table id="newLeaveTable" class="table table-condensed table-hover table-bordered">
             <thead>
             <tr>
                 <th>Start date</th>
                 <th>End date</th>
                 <th>Description</th>
                 <th>Type</th>
+                <th></th>
             </thead>
             <tbody>
             <tr>
@@ -72,19 +91,21 @@
                         <option value="none">Select a type</option>
                         <option value="scheduledLeave">Scheduled leave</option>
                         <option value="publicHoliday">Public holiday</option>
-                        <option value="training">Training day</option>
+                        <option value="training">Training</option>
                         <option value="additionalHoliday">Additional Holiday</option>
+                        <option value="additionalHoliday">Bereavement</option>
                     </select>
                 </td>
                 <td><input type="submit" value="Submit"/></td>
             </tr>
             </tbody>
         </table>
+        </form>
     </div>
 
-    <br>
+<!--     <br>
     <button id="submitButton">Submit</button>
-    <br>
+    <br> -->
 
     <h1>My bookings</h1>
 
@@ -117,8 +138,8 @@
     <button id="cancelEdit">Cancel/Edit booking</button>
 </div>
 
-<div class ="requested-leave" ng-show="isTeamLead">
-    <h1> Team Lead Area </h1>
+<div class="requested-leave" ng-show="isTeamLead">
+    <h1>Team Lead Area</h1>
     <div class="container">
         <h2>Requested Leave</h2>
         <p> Below shows requested leave that needs authorised from employees</p>
@@ -130,12 +151,22 @@
                 <th>Start Date</th>
                 <th>End Date</th>
                 <th>Description</th>
-                <th>Type</th>
+                <th>Leave Type</th>
+                <th>Status</th>
                 <th>Approve/Reject</th>
             </tr>
             </thead>
             <tbody>
-
+                <tr ng-repeat="leaveRequest in leaveRequestsForApproval">
+                <td>{{ leaveRequest.employeeName }}</td>
+                <td>{{ leaveRequest.projectName }}</td>
+                <td>{{ leaveRequest.startDate }}</td>
+                <td>{{ leaveRequest.endDate }}</td>
+                <td>{{ leaveRequest.description }}</td>
+                <td>{{ leaveRequest.leaveType }}</td>
+                <td>{{ leaveRequest.status }}</td>
+                <td><button class="approve" ng-click="approveRequest(leaveRequest.id)">Approve</button><button class="reject" ng-click="rejectRequest(leaveRequest.id)">Reject</button></td>
+            </tr>
             </tbody>
         </table>
     </div>
@@ -152,6 +183,7 @@
                 <th>Team Lead</th>
                 <th>Start Date</th>
                 <th>End Date</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -174,6 +206,7 @@
                 <td>14/06/15</td>
                 <td>17/09/16</td>
             </tr>
+            
             </tbody>
         </table>
     </div>
