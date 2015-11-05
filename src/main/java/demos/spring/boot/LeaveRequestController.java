@@ -27,6 +27,7 @@ public class LeaveRequestController {
 	
 	@RequestMapping(value="/new", method = RequestMethod.POST, consumes="application/json")
 	public LeaveRequest addLeaveRequest(@RequestBody LeaveRequest lr) {
+		System.out.println(lr);
 		leaveRequestDao.save(lr);
 		return lr;
 	}
@@ -37,7 +38,24 @@ public class LeaveRequestController {
 		return leaveRequests;
 	}
 	
+	@RequestMapping(value="/{id}/approve", method = RequestMethod.POST, produces="application/json")
+	public LeaveRequest approveLeaveRequest(@PathVariable Integer id) {
+		LeaveRequest leaveRequest = leaveRequestDao.findOne(id);
+		leaveRequest.setStatus(LeaveRequestStatus.APPROVED);
+		leaveRequestDao.save(leaveRequest);
+		return leaveRequest;
+	}
+	
+	@RequestMapping(value="/{id}/reject", method = RequestMethod.POST, produces="application/json")
+	public LeaveRequest rejectLeaveRequest(@PathVariable Integer id) {
+		LeaveRequest leaveRequest = leaveRequestDao.findOne(id);
+		leaveRequest.setStatus(LeaveRequestStatus.REJECTED);
+		leaveRequestDao.save(leaveRequest);
+		return leaveRequest;
+	}
+	
 	class TeamLeadLeaveRequest {
+		Integer id;
 		String employeeName;
 		String projectName;
 		int startDate;
@@ -56,9 +74,9 @@ public class LeaveRequestController {
 		for(Project project : projects) {
 			for(LeaveRequest request : allRequests) {
 				if(projectAndRequestOverlap(project, request)) {
-					System.out.println("in the if block inside the for loop");
 					Employee employee = empDao.findOne(request.getEmployeeId());
 					TeamLeadLeaveRequest newRequest = new TeamLeadLeaveRequest();
+					newRequest.id = request.getId();
 					newRequest.employeeName = employee.getFirstName() + " " + employee.getLastName();
 					newRequest.projectName = project.getName();
 					newRequest.startDate = request.getStartDate();

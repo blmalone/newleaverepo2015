@@ -25,27 +25,30 @@ public class ApplicationConfig {
 	
 	@Bean
 	public boolean setUp() {
-		System.out.println("!!!!!!!############*********************");
-		System.out.println("The set up method has been called.");
-
+		// create an employee and get back their stored employee object with ID
 		Employee emp = new Employee("Donald", "Duck", "donald@duck.net");
 		empDao.save(emp);
-		emp = empDao.findByEmailAddress("donald@duck.net");
-		System.out.println("ID OF EMPLOYEE IS" + emp.getId());
+		
+		// create some more employees
+		
+		// create a manager
+		Employee manager = new Employee("Peter", "Rabbit", "peter@hotdog.com", AccessLevel.TEAM_LEADER);
+		empDao.save(manager);
 
+		// create a leave request for the employee
 		int startDate = 20151103;
 		int endDate = 20151225;
 		String description = "going on holiday";
 		LeaveRequest leaveRequest = new LeaveRequest(emp.getId(), startDate, endDate, LeaveType.SCHEDULED_LEAVE, description);
 		leaveDao.save(leaveRequest);
 		
+		// create a project with the manager as team leader
 		int projectStart = 20151121;
 		int projectEnd = 20151213;
-		Project project = new Project("Test project", emp.getId(), projectStart, projectEnd);
+		Project project = new Project("Test project", manager.getId(), projectStart, projectEnd);
 		projectDao.save(project);
-		List<Project> projects = (List<Project>) projectDao.findAll();
-		project = projects.get(0);
 		
+		// add the employee to the project
 		EmployeeProject employeeProject = new EmployeeProject(emp.getId(), project.getId());
 		employeeProjectDao.save(employeeProject);
 		

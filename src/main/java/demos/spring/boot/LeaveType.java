@@ -1,9 +1,9 @@
 package demos.spring.boot;
 
 public enum LeaveType {
-	   	PUBLIC_HOLIDAYS,
-	    TRAINING_DAYS,
-	    ADDITIONAL_HOLIDAYS,
+	   	PUBLIC_HOLIDAY,
+	    TRAINING,
+	    ADDITIONAL_HOLIDAY,
 	    SCHEDULED_LEAVE,
 	    BEREAVEMENT
 }

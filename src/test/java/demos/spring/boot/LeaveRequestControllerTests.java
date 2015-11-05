@@ -25,7 +25,7 @@ public class LeaveRequestControllerTests {
 	
 	@Test
 	public void shouldCreateNewLeaveRequest() {
-		LeaveRequest leaveRequest = new LeaveRequest(1, 20150125, 20150212, LeaveType.ADDITIONAL_HOLIDAYS, "holiday");
+		LeaveRequest leaveRequest = new LeaveRequest(1, 20150125, 20150212, LeaveType.ADDITIONAL_HOLIDAY, "holiday");
 		Mockito.when(leaveRequestDao.save(leaveRequest)).thenReturn(leaveRequest);
 		leaveRequestController.addLeaveRequest(leaveRequest);
 	}
